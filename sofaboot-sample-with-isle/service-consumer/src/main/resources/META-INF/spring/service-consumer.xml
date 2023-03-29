@@ -4,9 +4,12 @@
        xmlns:sofa="http://sofastack.io/schema/sofaboot"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd"
+            http://sofastack.io/schema/sofaboot https://sofastack.io/schema/sofaboot.xsd"
        default-autowire="byName">
     <sofa:reference id="sampleJvmService" interface="com.alipay.sofa.isle.sample.facade.SampleJvmService">
+        <sofa:binding.jvm/>
+    </sofa:reference>
+    <sofa:reference id="sampleDemoJvmService" interface="com.alipay.sofa.isle.sample.facade.DemoJvmService">
         <sofa:binding.jvm/>
     </sofa:reference>
 

@@ -16,6 +16,8 @@
  */
 package com.alipay.sofa.boot.examples.demo.rpc;
 
+import com.alipay.hessian.generic.model.GenericObject;
+import com.alipay.sofa.rpc.api.GenericService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -39,5 +41,15 @@ public class SofaBootRpcDemoApplication {
         System.out.println(personBolt.sayName("bolt"));
         System.out.println(personRest.sayName("rest"));
 
+    //    demo1
+        String genericObject = "ant-group";
+        GenericService sampleGenericServiceReference = (GenericService) applicationContext
+                .getBean("sampleGenericServiceReference");
+        GenericObject genericResult = (GenericObject) sampleGenericServiceReference.$genericInvoke("sayGeneric",
+                new String[] { "com.alipay.sofa.rpc.samples.generic.SampleGenericParamModel" },
+                new Object[] { genericObject });
+        System.out.println(genericResult.toString());
+
     }
+
 }
