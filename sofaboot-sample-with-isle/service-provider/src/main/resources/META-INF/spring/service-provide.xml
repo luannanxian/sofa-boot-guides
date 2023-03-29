@@ -3,17 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:sofa="http://sofastack.io/schema/sofaboot"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd"
+            http://sofastack.io/schema/sofaboot https://sofastack.io/schema/sofaboot.xsd"
        default-autowire="byName">
     <bean id="sampleJvmService" class="com.alipay.sofa.isle.sample.provider.SampleJvmServiceImpl">
-        <property name="message" value="Hello, jvm service xml implementation."/>
+        <property name="message" value="Hello, sampleJvmService jvm service xml implementation."/>
+    </bean>
+
+    <bean id="sampleDemoJvmService" class="com.alipay.sofa.isle.sample.provider.DemoServiceImpl">
+        <property name="message" value="Hello, DemoServiceImpl jvm service xml implementation."/>
     </bean>
 
     <sofa:service ref="sampleJvmService" interface="com.alipay.sofa.isle.sample.facade.SampleJvmService">
         <sofa:binding.jvm/>
     </sofa:service>
+    <sofa:service ref="sampleDemoJvmService" interface="com.alipay.sofa.isle.sample.facade.DemoJvmService">
+        <sofa:binding.jvm/>
+    </sofa:service>
 
     <bean id="sampleJvmServiceAnnotation" class="com.alipay.sofa.isle.sample.provider.SampleJvmServiceAnnotationImpl"/>
-
+    <bean id="demoServiceClientAnnotationImpl" class="com.alipay.sofa.isle.sample.provider.DemoJvmServiceAnnotationImpl"/>
     <bean id="publishServiceWithClient" class="com.alipay.sofa.isle.sample.provider.PublishServiceWithClient" init-method="init"/>
+    <bean id="publishDemoServiceWithClient" class="com.alipay.sofa.isle.sample.provider.PublishDemoServiceByClient" init-method="init"/>
 </beans>

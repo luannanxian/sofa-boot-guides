@@ -24,4 +24,13 @@
 
     <bean id="personFilter" class="com.alipay.sofa.boot.examples.demo.rpc.bean.PersonServiceFilter"/>
 
+
+<!--    泛化调用-->
+<!--    接口写泛化调用统一接口-->
+    <sofa:reference jvm-first="false" id="sampleGenericServiceReference" interface="com.alipay.sofa.rpc.api.GenericService">
+        <sofa:binding.bolt>
+<!--            generic-interface写实际调用接口-->
+            <sofa:global-attrs generic-interface="com.alipay.sofa.rpc.samples.generic.SampleGenericService"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
 </beans>

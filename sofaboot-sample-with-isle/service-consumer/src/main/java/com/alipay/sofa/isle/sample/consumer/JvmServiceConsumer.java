@@ -16,6 +16,7 @@
  */
 package com.alipay.sofa.isle.sample.consumer;
 
+import com.alipay.sofa.isle.sample.facade.DemoJvmService;
 import com.alipay.sofa.isle.sample.facade.SampleJvmService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,16 +31,28 @@ import com.alipay.sofa.runtime.api.client.param.ReferenceParam;
  */
 public class JvmServiceConsumer implements ClientFactoryAware {
     private ClientFactory    clientFactory;
+    @Autowired
+    @SuppressWarnings("all")
+    private DemoJvmService  sampleDemoJvmService;
 
     @Autowired
+    @SuppressWarnings("all")
     private SampleJvmService sampleJvmService;
 
     @SofaReference(uniqueId = "annotationImpl")
     private SampleJvmService sampleJvmServiceByFieldAnnotation;
 
+    @SofaReference(uniqueId = "demoServiceClientAnnotationImpl")
+    private DemoJvmService demoJvmServiceImplsByFieldAnnotation;
+
+    @SofaReference(uniqueId = "DemoServiceClientImpl")
+    private DemoJvmService demoJvmServiceImplsByClient;
+
     public void init() {
         sampleJvmService.message();
         sampleJvmServiceByFieldAnnotation.message();
+        sampleDemoJvmService.returnMessage();
+        demoJvmServiceImplsByFieldAnnotation.returnMessage();
 
         ReferenceClient referenceClient = clientFactory.getClient(ReferenceClient.class);
         ReferenceParam<SampleJvmService> referenceParam = new ReferenceParam<SampleJvmService>();
@@ -47,6 +60,12 @@ public class JvmServiceConsumer implements ClientFactoryAware {
         referenceParam.setUniqueId("serviceClientImpl");
         SampleJvmService sampleJvmServiceClientImpl = referenceClient.reference(referenceParam);
         sampleJvmServiceClientImpl.message();
+
+        ReferenceParam<DemoJvmService> demoReferenceParam = new ReferenceParam<DemoJvmService>();
+        demoReferenceParam.setInterfaceType(DemoJvmService.class);
+        demoReferenceParam.setUniqueId("demoServiceClientImpl");
+        DemoJvmService demoJvmServiceClientImpl = referenceClient.reference(demoReferenceParam);
+        demoJvmServiceClientImpl.returnMessage();
     }
 
     public void setClientFactory(ClientFactory clientFactory) {
