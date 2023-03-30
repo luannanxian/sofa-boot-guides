@@ -35,7 +35,7 @@ public class ReferenceServiceImpl implements ReferenceService {
 
         SampleService sampleService = consumerConfig.refer();
 
-        Assert.isTrue("service".equals(sampleService.service()));
+        Assert.isTrue("service".equals(sampleService.service()),"service() is not 'service'");
     }
 
 }
